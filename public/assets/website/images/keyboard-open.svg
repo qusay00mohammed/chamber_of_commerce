@@ -1,0 +1,7 @@
+<svg id="keyboard-open" xmlns="http://www.w3.org/2000/svg" width="23.999" height="23.999" viewBox="0 0 23.999 23.999">
+  <g id="keyboard-open-2" data-name="keyboard-open">
+    <path id="Vector" d="M24,0V24H0V0Z" transform="translate(23.999 23.999) rotate(180)" fill="#fff" opacity="0"/>
+    <path id="Vector-2" data-name="Vector" d="M.75,1.5A.755.755,0,0,1,0,.75.755.755,0,0,1,.75,0h10a.755.755,0,0,1,.75.75.755.755,0,0,1-.75.75Z" transform="translate(6.25 21.249)" fill="#fff"/>
+    <path id="Vector-3" data-name="Vector" d="M16,17H4a4,4,0,0,1-4-4V4A4,4,0,0,1,4,0H16a4,4,0,0,1,4,4v9A4,4,0,0,1,16,17ZM4.74,11.359A.747.747,0,0,0,4,12.11a.756.756,0,0,0,.76.75h10.5a.75.75,0,1,0,.01-1.5ZM7.99,5.32A1,1,0,1,0,9,6.32,1,1,0,0,0,7.99,5.32Zm-3.15,0a.984.984,0,0,0-.99,1,1,1,0,1,0,.99-1Zm6.74.25a.76.76,0,0,0-.751.75.751.751,0,0,0,.751.751h3.68a.751.751,0,0,0,.75-.751.76.76,0,0,0-.75-.75Z" transform="translate(2 2)" fill="#fff"/>
+  </g>
+</svg>
