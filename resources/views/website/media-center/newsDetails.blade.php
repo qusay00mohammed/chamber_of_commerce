@@ -132,7 +132,7 @@
                     <div class="swiper swiperNews container">
                         <div class="swiper-wrapper">
 
-                            @foreach (App/Models/MediaCenter/MediaCenter::orderBy('id', 'desc')->take(5)->get() as $item)
+                            @foreach (App\Models\MediaCenter\MediaCenter::orderBy('id', 'desc')->take(5)->get() as $item)
                             <div class="swiper-slide">
                                 <div class="cardNews">
                                     <a href="newsDetails.html">
