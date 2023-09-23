@@ -87,7 +87,7 @@
 
                 <div class="textNewsDetails" id="textBody">
                     <h3 class="lineTitle">تعميم: الغرفة التجارية</h3>
-                    <p class="mt-4 dateNews">{{ $generalizationsDetails->created_at }}</p>
+                    <p class="mt-4 dateNews">{{ $generalizationsDetails->created_at->format('Y:m:d') }}</p>
 
                     <div class="bodyText mt-5" style="font-size: unset !important">
                       {!! $generalizationsDetails->description !!}

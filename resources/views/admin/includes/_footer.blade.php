@@ -5,7 +5,7 @@
         <!--begin::Copyright-->
         <div class="text-dark order-2 order-md-1">
             <span class="text-muted fw-bold me-1">2023©</span>
-            <a style="cursor: pointer;" class="text-gray-800 text-hover-primary">جميع الحقوق محفوظة للموقع الإلكتروني جمعية فلسطين لحماية البيئة</a>
+            <a style="cursor: pointer;" class="text-gray-800 text-hover-primary">جميع الحقوق محفوظة للغرفة التجارية - غزة</a>
         </div>
         <!--end::Copyright-->
         <!--begin::Menu-->

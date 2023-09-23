@@ -68,7 +68,7 @@
                             </div>
                             <div class="textCardM">
                                 <p id="video{{ $item->id }}"></p>
-                                <span>{{ $item->created_at }}</span>
+                                <span>{{ $item->created_at->format('Y:m:d') }}</span>
                                 <script>
                                     $(document).ready(function() {
                                         var id_video = "{{ $videoID }}";

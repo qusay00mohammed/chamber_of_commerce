@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin\OfficialAgency;
 use App\Http\Controllers\Controller;
 use App\Models\OfficialAgency;
 use Illuminate\Http\Request;
-use DataTables;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class OfficialAgencyController extends Controller
 {

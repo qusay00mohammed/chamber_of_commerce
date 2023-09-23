@@ -72,25 +72,9 @@ class AdministrationMemberController extends Controller
                     static $count = 1;
                     return $count++;
                 })
-                // ->addColumn('image', function ($row) {
-
-                //             $url = asset("storage/$row->image_url");
-                //             return '<a href="'. $url .'" data-fancybox ><i class="fa-solid fa-image" style="color: #e4e6ef"></i></a>';
-
-                // })->escapeColumns([])
-
-                // ->addcolumn('administration', function ($row) {
-                //     if ($row->administration == 1) {
-                //         $administration = "نعم";
-                //     } else {
-                //         $administration = "لا";
-                //     }
-                //     return $administration;
-                // })->escapeColumns([])
 
                 ->addColumn('action', function ($row) {
                     $btn = '';
-                    // $btn .= '<a href=" ' . route("administrationMembers.edit", $row->id) . '"><i class="text-info fas fa-edit" style="font-size: 16px"></i>&nbsp;&nbsp;</a>';
 
                     $btn .= '<a onclick="performDestroy(' . $row->id . ', this)" style="cursor: pointer; font-size: 16px">
                                     <i class="text-danger fas fa-trash-alt"></i>
@@ -205,8 +189,6 @@ class AdministrationMemberController extends Controller
      */
     public function show(string $id)
     {
-        // $news = MediaCenter::findOrFail($id);
-        // return view('admin.news.visits', compact('news'));
     }
 
     /**

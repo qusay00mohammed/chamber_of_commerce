@@ -42,7 +42,7 @@
                         <a href="{{ route('generalizationsDetails', [$item->id]) }}" class="cardpdfD cardG">
                             <div class="textCardfD">
                                 <h5 class="fontBold">{{ $item->title }}</h5>
-                                <span>{{ $item->created_at }}</span>
+                                <span>{{ $item->created_at->format('Y:m:d') }}</span>
                             </div>
                             <span href="{{ route('generalizationsDetails', [$item->id]) }}" class="btnS">تعرف على المزيد</span>
                         </a>

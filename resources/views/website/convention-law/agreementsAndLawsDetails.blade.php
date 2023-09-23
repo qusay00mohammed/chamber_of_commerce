@@ -48,7 +48,7 @@
                                 <h5 class="fontBold">{{ $item->title }}</h5>
 
                                 <span>كيلوبايت {{ round(filesize(public_path("storage/$item->file_name")) / 1024, 2) }} </span> {{-- ، 26 الصفحات  --}}
-                                <span>{{ $item->created_at }}</span>
+                                <span>{{ $item->created_at->format('Y:m:d') }}</span>
                             </div>
                             <img class="eye" src="{{ asset('assets/website/images/eye.svg') }}" alt="" />
                         </a>

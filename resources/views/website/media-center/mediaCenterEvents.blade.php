@@ -65,7 +65,7 @@
 
                             <div class="textCardM">
                                 <p>{{ $item->title }}</p>
-                                <span>{{ $item->created_at }}</span>
+                                <span>{{ $item->created_at->format('Y:m:d') }}</span>
                             </div>
                         </a>
                     </div>

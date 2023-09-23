@@ -1350,7 +1350,7 @@
                     <div id="color-calendar"></div>
                 </div>
             </div>
-            <a href="" class="btnS bottom mt-5">تعرف على المزيد</a>
+            <a href="{{ route('mediaCenterNews') }}" class="btnS bottom mt-5">تعرف على المزيد</a>
         </section>
 
         <section class="officialAgenciesSec sectionS mt-5">

@@ -65,7 +65,7 @@
                                     <img src="{{ asset("storage/files/news/$item->basicFile") }}" alt="" />
                                 </div>
                                 <div class="textCardNews">
-                                    <span>{{ $item->created_at }}</span>
+                                    <span>{{ $item->created_at->format('Y:m:d') }}</span>
                                     <h5>{{ $item->title }}</h5>
                                     <p>{{ $item->short_description }}</p>
                                 </div>

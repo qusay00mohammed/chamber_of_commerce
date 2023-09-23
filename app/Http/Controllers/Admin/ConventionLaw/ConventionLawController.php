@@ -93,8 +93,6 @@ class ConventionLawController extends Controller
      */
     public function show(string $id)
     {
-        // $news = MediaCenter::findOrFail($id);
-        // return view('admin.news.visits', compact('news'));
     }
 
     /**

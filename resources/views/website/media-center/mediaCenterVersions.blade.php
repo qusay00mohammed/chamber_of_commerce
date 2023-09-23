@@ -62,7 +62,7 @@
                         <div class="cardVersion">
                             <div class="textCardVersion">
                                 <h3 class="lineTitle fontBold mb-4">{{ $item->title }}</h3>
-                                <span>{{ $item->created_at }}</span>
+                                <span>{{ $item->created_at->format('Y:m:d') }}</span>
                             </div>
                             <a href="{{ asset("storage/$item->image_url") }}" data-fancybox class="pdfCardVersion">
                                 <img src="{{ asset('assets/website/images/pdf-svgrepo-com.svg') }}" alt="" />

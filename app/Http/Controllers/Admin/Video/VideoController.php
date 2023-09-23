@@ -4,21 +4,13 @@ namespace App\Http\Controllers\Admin\Video;
 
 use App\Http\Controllers\Controller;
 use App\Models\File;
-// use App\Models\Audit;
-// use App\Models\LoginLog;
 use App\Models\MediaCenter\MediaCenter;
-// use App\Models\News;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-// use Yajra\DataTables\Services\Datatables;
-// use App\DataTables\NewsDataTable;
-use DataTables;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-// use Yajra\DataTables\Facades\DataTables;
+use Yajra\DataTables\Facades\DataTables;
 
 class VideoController extends Controller
 {
@@ -45,16 +37,6 @@ class VideoController extends Controller
                 $data->where('title', 'like', '%' . $title . '%');
             }
 
-            // Description Filtering
-            // if (isset($request->desc)) {
-            //     $description = $request->input('desc');
-            //     $data->where('description', 'like', '%' . $description . '%');
-            // }
-
-
-
-
-
             $data = $data->select('*')->where('type', 'video')->orderBy('id', 'desc');
 
 
@@ -71,53 +53,7 @@ class VideoController extends Controller
                             </a>';
 
 
-                    // // if ($row->files->first() != null) {
-                    //     // foreach ($row->files as $image) {
-
-                    //         $url = asset("storage/files/videos/$row->basicFile");
-                    //         $part2 = explode('.', $row->basicFile);
-                    //         if ($part2[1] == 'mp4') {
-                    //             // style="display: block" target="_blank"
-                    //             return '
-                    //             <a href="'. $url .'" data-fancybox data-width="640" data-height="360">
-                    //                 <i class="fa-solid fa-video" style="color: #e4e6ef"></i>
-                    //             </a>';
-
-                    //             // <img height="70px" width="80px" src="http://i3.ytimg.com/vi/dZRqB0JLizw/h" />
-                    //             // <video height="70px" width="80px">
-                    //             //     <source src="'. $url .'" type="video/mp4">
-                    //             //     <source src="'. $url .'" type="video/mp4">
-                    //             //     <source src="'. $url .'" type="video/mp4">
-                    //             // </video>
-                    //         }
-                    //         else
-                    //         {
-                    //             return '
-                    //             <a href="'. $url .'" data-fancybox >
-                    //                 <i class="fa-solid fa-image" style="color: #e4e6ef"></i>
-                    //             </a>
-                    //             ';
-
-                    //             // <img height="60px" width="70px" style="border-radius: 7px" src="' . $url . '">
-                    //         }
-                    //         // break;
-                    //     // }
-
-                    // // } else {
-                    // //     return 'لا يوجد صورة';
-                    // // }
                 })->escapeColumns([])
-                // ->addcolumn('status', function ($row) {
-
-                //     $checked = $row->status == 'active' ? 'checked' : '';
-                //     if ($row->status == 'active') {
-                //         $status = "1";
-                //     } else {
-                //         $status = "2";
-                //     }
-
-                //     return "<input $checked onchange='checkboxFun($status, $row->id)' type='checkbox' style='height: 20px; width: 20px;'>";
-                // })->escapeColumns([])
 
                 ->addcolumn('publication_at', function ($row) {
 
@@ -126,7 +62,6 @@ class VideoController extends Controller
 
                 ->addColumn('action', function ($row) {
                     $btn = '';
-                    // $btn .= '<a href=" ' . route("media_center_logs", $row->id) . '"><i class="text-success fa fa-blog" style="font-size: 16px"></i>&nbsp;&nbsp;</a>';
                     $btn .= '<a href=" ' . route("videos.edit", $row->id) . '"><i class="text-info fas fa-edit" style="font-size: 16px"></i>&nbsp;&nbsp;</a>';
 
                     $btn .= '<a onclick="performDestroy(' . $row->id . ', this)" style="cursor: pointer; font-size: 16px">
@@ -150,151 +85,6 @@ class VideoController extends Controller
     }
 
 
-    // public function logDetails($id)
-    // {
-    //     // $audits = News::findOrFail($id);
-    //     // $audits = News::with('audits')->findOrFail($id);
-    //     // $audits = DB::table('audits')->select('*')->where('id', $id)->first();
-    //             // ->where('auditable_type', 'App\Models\News')->get();
-
-
-    //     $audits = Audit::findOrFail($id);
-
-    //     // dd($audits->user_agent);
-    //     // dd($audits);
-
-    //     return view('admin.news.logDetails', compact('audits'));
-    // }
-
-
-    // public function logNews(Request $request)
-    // {
-
-    //     // dd('qwe');
-
-    //     // $logs = DB::table('audits')->select('*')
-    //     // ->join('users', 'audits.user_id', '=', 'users.id')
-    //     // // ->join('news', 'audits.auditable_id', '=', 'news.id')
-    //     // ->where('auditable_type', 'App\Models\News')->get();
-
-    //     // $logs = Audit::with(['news', 'user'])->get();
-    //     // dd(json_decode($logs[0]->old_values)->title_ar);
-    //     //$row->news->title_ar ?? $row->old_values->title_ar
-
-
-    //     if($request->ajax()) {
-
-    //         // $data = DB::table('audits')->select('*')
-    //         //     ->join('users', 'audits.user_id', '=', 'users.id')
-    //         //     ->join('news', 'audits.auditable_id', '=', 'news.id')
-    //         //     ->where('auditable_type', 'App\Models\News')->get();
-
-    //         $data = Audit::orderBy('id', 'desc')->with(['news', 'user']);
-
-
-
-    //         return FacadesDataTables::of($data)
-    //             ->addColumn('event', function ($row) {
-    //                 if ($row->event == 'deleted')
-    //                 {
-    //                     $btn = '';
-    //                     $btn .= '<a><i class="fa-solid fa-trash" style="font-size: 15px; color:rgb(196, 30, 58)"></i>&nbsp;&nbsp;&nbsp;</a>';
-    //                     $btn .= '<a title="عرض التفاصيل" href=" ' . route('logDetails', [$row->id ?? json_decode($row->old_values)->id]) . '"><i style="font-size: 15px; color:rgb(50, 205, 50)" class="fa-solid fa-eye"></i></a>';
-    //                     return $btn;
-    //                 }
-    //                 else if($row->event == 'updated')
-    //                 {
-    //                     $btn = '';
-    //                     $btn .= '<a><i class="fa-solid fa-pen-clip" style="font-size: 15px; color:rgb(0, 119, 190)"></i>&nbsp;&nbsp;&nbsp;</a>';
-    //                     $btn .= '<a title="عرض التفاصيل" href=" ' . route('logDetails', [$row->id]) . '"><i style="font-size: 15px; color:rgb(50, 205, 50)" class="fa-solid fa-eye"></i></a>';
-    //                     return $btn;
-    //                 }
-    //                 else
-    //                 {
-    //                     $btn = '';
-    //                     $btn .= '<a><i class="fa-solid fa-plus" style="font-size: 15px; color:rgb(50, 205, 50)"></i>&nbsp;&nbsp;&nbsp;</a>';
-    //                     $btn .= '<a title="عرض التفاصيل" href=" ' . route('logDetails', [$row->id]) . '"><i style="font-size: 15px; color:rgb(50, 205, 50)" class="fa-solid fa-eye"></i></a>';
-    //                     return $btn;
-    //                 }
-
-    //                 // return '<a href=" ' . route("news.show", $row->id) . '">'.$title.'</a>';
-    //             })->escapeColumns([])
-
-
-
-    //             ->addcolumn('created_at', function ($row) {
-    //                 Carbon::setLocale('ar');
-    //                 // return $row->created_at->diffForHumans();
-
-    //                 return Carbon::parse($row->created_at)->diffForHumans();
-    //                 // return __('تم النشر منذ', ['time' => $row->created_at->diffForHumans()]);
-
-    //                 // return trans('منذ', [$row->created_at->diffForHumans()]);
-
-    //             })->escapeColumns([])
-
-    //             // ->addcolumn('title_ar', function ($row) {
-    //             //     return $row->title_ar;
-
-    //             // })->escapeColumns([])
-
-
-    //             ->addColumn('news_id', function ($row) {
-    //                 $title = $row->news->title_ar ?? json_decode($row->old_values)->title_ar ?? "خبر محذوف";
-
-    //                 if ($row->event == 'updated')
-    //                 {
-    //                     return '<span class="spanPop" style="background-color:rgb(0, 119, 190);"></span>' . mb_substr($title, 0, 50, 'UTF-8');
-    //                 }
-    //                 else if($row->event == 'deleted')
-    //                 {
-    //                     return '<span class="spanPop" style="background-color:rgb(196, 30, 58)"></span>' . mb_substr($title, 0, 50, 'UTF-8');
-    //                 }
-    //                 else
-    //                 {
-    //                     return '<span class="spanPop" style="background-color:rgb(50, 205, 50)"></span>' . mb_substr($title, 0, 50, 'UTF-8');
-    //                 }
-
-    //             })->escapeColumns([])
-
-
-
-    //             ->addColumn('user_id', function ($row) {
-    //                 return $row->user->name;
-    //             })
-    //             ->make(true);
-    //     }
-    //     return view('admin.news.logs');
-    // }
-
-
-
-
-    // public function status(Request $request)
-    // {
-    //     try {
-    //         $request->validate([
-    //             'id' => 'required',
-    //             'status' => 'required',
-    //         ]);
-    //         $news = News::findOrfail($request->id);
-    //         if ($request->status == '2') {
-    //             $news->status = 'active';
-    //         } else if ($request->status == '1') {
-    //             $news->status = 'unactive';
-    //         }
-
-    //         $news->save();
-
-    //         return response()->json([
-    //             'status' => 'success',
-    //         ], 201);
-    //     } catch (\Throwable $th) {
-    //         return response()->json([
-    //             'status' => 'error',
-    //         ], 400);
-    //     }
-    // }
 
 
     /**
@@ -315,52 +105,18 @@ class VideoController extends Controller
         // dd(json_decode($request->repeaterData));
         try {
             $validator = Validator::make($request->all(), [
-                // "title" => "required|string|min:3|max:255",
-                // "description" => "required",
-                // "short_description" => "required|string|min:3|max:255",
                 'basicFile'=>"required|url", // |max:10240
                 "status" => 'required|in:active,unactive,scheduled',
-                // "showInSlider" => 'required|in:yes,no',
                 'publication_at' => 'required',
-
-                // "repeaterData" => "array",
-                // 'repeaterData.*'=>"link",
-
             ],
             [
 
-                // 'basicFile.file' => "رجاء اختيار ملف",
                 'basicFile.required' => "حقل الصورة مصلوب",
                 'basicFile.url' => "الرجاء ادخال رابط صحيح",
-                // 'basicFile.max' => "يجب ان يكون حجم الصورة اقل من 30 ميجا",
-
-                // 'title.required' => "حقل الاسم مطلوب",
-                // 'title.min' => "يجب ان يكون الاسم اكبر من ثلاث حروف",
-                // 'title.max' => "الاسم كبير للغاية",
-
-                // 'description.required' => "حقل الوصف مصلوب",
-
-                // 'short_description.required' => "حقل الوصف المختصر مطلوب",
-                // 'short_description.min' => "يجب ان يكون الوصف المختصر اكبر من ثلاث حروف",
-                // 'short_description.max' => "الوصف المختصر كبير للغاية",
 
                 'publication_at.required' => 'حقل تاريخ النشر مطلوب',
                 'status.required' => 'حقل حالة الخبر مطلوب',
                 'status.in' => 'يجب ادخال قيمة صحيحة في حقل حالة الخبر',
-
-
-                // 'repeaterData.required' => "حقل الصورة الرابط",
-                // 'repeaterData.*.required' => "الرجاء ادخال رابط صحيح",
-                // 'repeaterData.*.link' => "الرجاء ادخال رابط صحيح",
-                // "files.required" => "الصورة مطلوبة",
-                // 'files.*.required' => "حقل الصورة مصلوب",
-                // 'files.*.image' => "يجب ان يكون نوع الملف صورة",
-                // 'files.*.mimes' => "يجب ادخال صورة بصيغة png او jpg او jpeg",
-                // 'files.*.max' => "يجب ان يكون حجم الصورة اقل من 3 ميجا"
-
-                // 'showInSlider.required' => 'حقل عرض الخبر مطلوب',
-                // 'showInSlider.in' => 'يجب ادخال قيمة صحيحة في حقل عرض الخبر',
-
 
             ]);
 
@@ -369,75 +125,15 @@ class VideoController extends Controller
                 return Response::make(['errors' => $validator->errors()->first()], 400);
             }
 
-            // dd($request->file('files'));
-
-            $slug = Str::slug($request->post('title'));
-
-            $validate = MediaCenter::where('slug', $slug)->first();
-
-            if($validate != null) {
-                return Response::make(['errors' => 'تمت إضافة العنوان مسبقا'], 400);
-            }
-
-            // $file = $request->file('basicFile');
-            // $basicFileName = time() . $file->getClientOriginalName();
-            // $file->storeAs('files/images', $basicFileName, ['disk' => 'public']);
 
             $store = MediaCenter::create([
                 "title" => 'null',
-                // "description" => $request->post('description'),
-                // "short_description" => $request->post('short_description'),
-                "slug" => $slug,
+                "slug" => $request->post('basicFile') . $request->post('status') . $request->post('publication_at'),
                 "type" => "video",
                 "status" => $request->post('status'),
-                // "showInSlider" => $request->post('showInSlider'),
                 "basicFile" => $request->post('basicFile'),
                 "publication_at" => $request->post('publication_at'),
             ]);
-
-
-            // // start upload image
-            // if ($request->repeaterData) {
-            //     foreach (json_decode($request->repeaterData) as $data) {
-            //         $store->files()->create([
-            //             "filename" => $data,
-            //         ]);
-            //     }
-            // }
-            // // end upload image
-
-
-            // $request->validate([
-
-            // ], [
-
-            // ]);
-
-
-
-
-
-
-
-
-            // $userAgent = $request->header('User-Agent');
-            // if (strpos($userAgent, 'Mobile') !== false) {
-            //     $userAgent = "Mobile";
-            // } elseif (strpos($userAgent, 'Tablet') !== false) {
-            //     $userAgent = "Tablet";
-            // } else {
-            //     $userAgent = "PC";
-            // }
-
-            // LoginLog::create([
-            //     'user_id' => auth()->user()->id,
-            //     'news_id' => $store->id,
-            //     'ip_address' => request()->ip(),
-            //     'user_device' => $userAgent,
-            //     'type' => 'news',
-            //     'process' => 'إضافة'
-            // ]);
-
 
 
             return response()->json([
@@ -448,7 +144,6 @@ class VideoController extends Controller
                 'status' => 'error',
                 'errors' => $e->getMessage(),
             ], 400);
-            // return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 
@@ -457,8 +152,6 @@ class VideoController extends Controller
      */
     public function show(string $id)
     {
-        // $news = MediaCenter::findOrFail($id);
-        // return view('admin.news.visits', compact('news'));
     }
 
     /**
@@ -480,39 +173,15 @@ class VideoController extends Controller
         try {
 
             $validator = Validator::make($request->all(), [
-                // "title" => "required|string|min:3|max:255",
-                // "description" => "required",
-                // "short_description" => "required|string|min:3|max:255",
-                // "files" => "required|array",
-                // 'files.*'=>"required|file|mimes:png,jpg,jpeg,mp4", // |max:10240
-                // 'basicFile'=>"required|mimes:png,jpg,jpeg,mp4", // |max:10240
                 "status" => 'required|in:active,unactive,scheduled',
-                // "showInSlider" => 'required|in:yes,no',
                 'publication_at' => 'required',
             ],
             [
-                // 'title.required' => "حقل الاسم مطلوب",
-                // 'title.min' => "يجب ان يكون الاسم اكبر من ثلاث حروف",
-                // 'title.max' => "الاسم كبير للغاية",
-
-                // 'description.required' => "حقل الوصف مصلوب",
-
-                // 'short_description.required' => "حقل الوصف المختصر مطلوب",
-                // 'short_description.min' => "يجب ان يكون الوصف المختصر اكبر من ثلاث حروف",
-                // 'short_description.max' => "الوصف المختصر كبير للغاية",
 
                 'publication_at.required' => 'حقل تاريخ النشر مطلوب',
                 'status.required' => 'حقل حالة الخبر مطلوب',
                 'status.in' => 'يجب ادخال قيمة صحيحة في حقل حالة الخبر',
 
-                // 'showInSlider.required' => 'حقل عرض الخبر مطلوب',
-                // 'showInSlider.in' => 'يجب ادخال قيمة صحيحة في حقل عرض الخبر',
-
-                // "basicFile.required" => "الصور مطلوبة",
-                // 'basicFile.required' => "حقل الصورة مصلوب",
-                // 'files.*.image' => "يجب ان يكون نوع الملف صورة",
-                // 'basicFile.mimes' => "يجب ادخال صورة بصيغة png او jpg او jpeg او mp4",
-                // 'basicFile.max' => "يجب ان يكون حجم الصورة اقل من 30 ميجا"
             ]);
 
             //Now check validation:
@@ -520,88 +189,13 @@ class VideoController extends Controller
                 return Response::make(['errors' => $validator->errors()->first()], 400);
             }
 
-            // if ($file = $request->file('basicFile')) {
-            //     $basicFileName = time() . $file->getClientOriginalName();
-            //     $file->storeAs('files/videos', $basicFileName, ['disk' => 'public']);
-            // }
 
             $update = $news->update([
                 "title" => 'null',
-                // "description" => $request->post('description'),
-                // "short_description" => $request->post('short_description'),
                 "status" => $request->post('status'),
                 "publication_at" => $request->post('publication_at'),
-                // "showInSlider" => $request->post('showInSlider'),
                 "basicFile" => $request->post('basicFile') ?? $news->basicFile,
             ]);
-
-            // foreach (File::where('fileable_id', $id)->get() as $value) {
-            //     $value->delete();
-            // }
-
-            // if ($request->repeaterData) {
-            //     foreach (json_decode($request->repeaterData) as $data) {
-
-            //         $storeFile = File::create([
-            //             'filename' => $data,
-            //             'fileable_id' => $id,
-            //             'fileable_type' => 'App\Models\MediaCenter\MediaCenter'
-            //         ]);
-
-            //     }
-            // }
-
-
-
-
-            // start upload image
-            // if ($request->file('files')) {
-
-            //     $request->validate([
-            //         "files" => "required|array",
-            //         'files.*'=>"required|file|mimes:png,jpg,jpeg,mp4",
-            //     ], [
-            //         "files.required" => "الصورة مطلوبة",
-            //         'files.*.required' => "حقل الصورة مصلوب",
-            //         'files.*.image' => "يجب ان يكون نوع الملف صورة",
-            //         'files.*.mimes' => "يجب ادخال صورة بصيغة png او jpg او jpeg",
-            //         'files.*.max' => "يجب ان يكون حجم الصورة اقل من 3 ميجا"
-            //     ]);
-
-            //     foreach ($request->file('files') as $file) {
-            //         // foreach ($file as $f) {
-            //             $fileName = time() . $file->getClientOriginalName();
-            //             $file->storeAs('files/images', $fileName, ['disk' => 'public']);
-            //             $storeFile = File::create([
-            //                 'filename' => $fileName,
-            //                 'fileable_id' => $id,
-            //                 'fileable_type' => 'App\Models\MediaCenter\MediaCenter'
-            //             ]);
-            //         // }
-            //         // break;
-            //     }
-            // }
-            // end upload image
-
-            // $userAgent = $request->header('User-Agent');
-            // if (strpos($userAgent, 'Mobile') !== false) {
-            //     $userAgent = "Mobile";
-            // } elseif (strpos($userAgent, 'Tablet') !== false) {
-            //     $userAgent = "Tablet";
-            // } else {
-            //     $userAgent = "PC";
-            // }
-
-            // LoginLog::create([
-            //     'user_id' => auth()->user()->id,
-            //     'news_id' => $id,
-            //     'ip_address' => request()->ip(),
-            //     'user_device' => $userAgent,
-            //     'type' => 'news',
-            //     'process' => 'تعديل'
-            // ]);
-
-
 
             session()->flash('update');
             return response()->json([
@@ -612,7 +206,6 @@ class VideoController extends Controller
                 'status' => 'error',
                 'errors' => $e->getMessage(),
             ], 400);
-            // return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 

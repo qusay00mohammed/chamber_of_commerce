@@ -92,7 +92,7 @@
 
                 <div class="textNewsDetails" id="textBody">
                     <h3 class="lineTitle">{{ $news->title }}</h3>
-                    <p class="mt-4 dateNews">{{ $news->created_at }}</p>
+                    <p class="mt-4 dateNews">{{ $news->created_at->format('Y:m:d') }}</p>
 
                     <div class="bodyText mt-5">
                         {!! $news->description !!}
@@ -131,6 +131,8 @@
                     <div class="swiper-button-prev button-prev-swiperNews"></div>
                     <div class="swiper swiperNews container">
                         <div class="swiper-wrapper">
+
+                            @foreach (App/Models/MediaCenter/MediaCenter::orderBy('id', 'desc')->take(5)->get() as $item)
                             <div class="swiper-slide">
                                 <div class="cardNews">
                                     <a href="newsDetails.html">
@@ -138,21 +140,19 @@
                                             <img src="{{ asset('assets/website/images/imgC10.png') }}" alt="" />
                                         </div>
                                         <div class="textCardNews">
-                                            <span>15 يوليو 2023</span>
-                                            <h5>
-                                                وفد من الغرفة التجارية بغزة يتفقد آليه عمل معبر كرم
-                                                أبو سالم
-                                            </h5>
-                                            <p>
-                                                تفقد وفد من غرفة تجارة وصناعة محافظة غزة اليوم، آليه
-                                                عمل معبر كرم أبو سالم جنوب قطاع غزة، وذلك خلال جولة
-                                            </p>
+                                            <span>{{ $item->created_at->format('Y:m:d') }}</span>
+                                            <h5>{{ $item->title }}</h5>
+                                            <p>{{ $item->short_description }}</p>
                                         </div>
-                                        <a href="newsDetails.html" class="btnS btnSCard">تعرف على المزيد</a>
+                                        <a href="{{ route('website.newsDetails', [$item->id]) }}" class="btnS btnSCard">تعرف على المزيد</a>
                                     </a>
                                 </div>
                             </div>
-                            <div class="swiper-slide">
+                            @endforeach
+
+
+
+                            {{-- <div class="swiper-slide">
                                 <div class="cardNews">
                                     <a href="newsDetails.html">
                                         <div class="imgCardNews">
@@ -233,11 +233,14 @@
                                         <a href="" class="btnS btnSCard">تعرف على المزيد</a>
                                     </a>
                                 </div>
-                            </div>
+                            </div> --}}
+
+
+
                         </div>
                     </div>
 
-                    <a href="mediaCenterNews.html" class="btnS btnSCard m-auto mt-4">تعرف على المزيد</a>
+                    <a href="{{ route('mediaCenterNews') }}" class="btnS btnSCard m-auto mt-4">تعرف على المزيد</a>
                 </div>
             </div>
         </div>
